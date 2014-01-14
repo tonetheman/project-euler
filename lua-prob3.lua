@@ -1,12 +1,7 @@
 -- prob3
 
+local utils = require("utils")
 local target = 600851475143
-
-function pt(t)
-	for k,v in pairs(t) do
-		print(k .. " " .. v)
-	end
-end
 
 function factor(t)
 	local top = math.sqrt(target)
@@ -19,7 +14,7 @@ function factor(t)
 			index = index + 1
 		end
 	end
-	pt(nums)
+	utils.pt(nums)
 end
 
 factor(target)
