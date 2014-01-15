@@ -40,7 +40,7 @@ function factor(t)
 			index = index + 1
 		end
 	end
-	utils.pt(nums)
+	return nums
 end
 
 function prime_test()
@@ -51,5 +51,17 @@ function prime_test()
 	end
 end
 
-prime_test()
--- print(is_prime(9))
+local nums = factor(target)
+
+print("look for the largest number that is marked -> T")
+for i=1,#nums do
+	local val = nums[i]
+	local ip = is_prime(val)
+	if ip then
+		print ("factor: " .. val .. " :p-> T")
+	else
+		print("factor: " .. val .. " :p-> F")
+	end
+end
+
+
