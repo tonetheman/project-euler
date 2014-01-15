@@ -4,7 +4,14 @@ local me = {}
 
 function me.pt(t)
 	for k,v in pairs(t) do
-		print(k .. " " .. v)
+		if type(v) == "table" then
+				for kk,vv in pairs(v) do
+					print(string.format("%d %d", kk,vv))
+				end
+				print()
+		else
+			print(k .. " " .. v)
+		end
 	end
 end
 
