@@ -1,12 +1,7 @@
 -- prob 2
 
 local fibs = {}
-
-function pt(t)
-	for k,v in pairs(t) do
-		print(k .. " " .. v)
-	end
-end
+local utils = require("utils")
 
 function gen()
 	fibs[1] = 1
@@ -33,5 +28,5 @@ function sum_it(t)
 end
 
 gen()
--- pt(fibs)
+-- utils.pt(fibs)
 sum_it(fibs)
