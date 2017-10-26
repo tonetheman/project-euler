@@ -5,8 +5,9 @@ import (
   "math"
 )
 
-const MAXLEN = 1000000
+const MAXLEN = 2000000
 const MAXPRIMESBELOW1M = 79000
+const MAXPRIMESBELOW2M = 149000
 
 func isPrime(i int, primes []int, curlen int) bool {
   for j := 0; j<curlen; j++ {
@@ -30,7 +31,7 @@ func main() {
 
   // got this number by experimenting
   // number of primes less than 1,000,000 is 78948
-  var primes [MAXPRIMESBELOW1M]int
+  var primes [MAXPRIMESBELOW2M]int
   primes[0] = 2
   primes[1] = 3
 
@@ -47,10 +48,13 @@ func main() {
 
   //fmt.Println(primes)
   count := 0
-  for i:= 0;i<MAXPRIMESBELOW1M;i++ {
+  mysum := 0
+  for i:= 0;i<MAXPRIMESBELOW2M;i++ {
     if primes[i] != 0 {
       count++
+      mysum += primes[i]
     }
   }
   fmt.Println(count)
+  fmt.Println(mysum)
 }
