@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"strconv"
 )
 
 func main() {
@@ -30,8 +31,30 @@ func main() {
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
 `
 
+type IntGrid [20][20]int
+
 	s_data := strings.Split(s, " ")
 	for i := 0; i < len(s_data); i++ {
-		fmt.Println(s_data[i])
+		var tmp = strings.TrimSpace(s_data[i])
+		fmt.Println("tmp",tmp)
+		if tmp[0] == '0' {
+			s_data[i] = string(tmp[1])
+		} else {
+			s_data[i] = string(tmp)
+		}
 	}
+
+	var ig IntGrid
+	index := 0
+	for i:=0;i<20;i++ {
+		for j:=0;j<20;j++ {
+			fmt.Println(i,j,index,s_data[index])
+			junk,_ := strconv.Atoi(s_data[index])
+			ig[i][j] = junk
+			index = index + 1
+		}
+	}
+
+
+
 }
