@@ -15,12 +15,15 @@ func main() {
 
 	// fix data
 	for i:=0;i<len(d);i++ {
+		d[i] = strings.Trim(d[i],"\n\t ")
 		if d[i] == "00" {
 			d[i] = "0"
 		}
 		if strings.HasPrefix(d[i],"0") && len(d[i]) == 2  {
-			//fmt.Println(d[i], len(d[i]), d[i][1:])
+			fmt.Println("FIX",d[i], len(d[i]), d[i][1:])
 			d[i] = d[i][1:]
+		} else {
+			fmt.Println("NOT FIX", d[i], len(d[i]))
 		}
 	}
 
