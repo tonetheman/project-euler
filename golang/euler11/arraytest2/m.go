@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"strconv"
 )
 
 func main() {
@@ -21,6 +22,14 @@ func main() {
 	// need to see if there is another choice here
 	// to interpret strings as int with a radix
 	for i:=0;i<len(d);i++ {
+
+		// throwing away the value for now
+		// ParseInt takes a string
+		// a base and a bit size
+		_,err := strconv.ParseInt(d[i],10,16)
+		if err != nil {
+			fmt.Println("ERROR", err)
+		}
 		if d[i] == "00" {
 			d[i] = "0"
 		}
