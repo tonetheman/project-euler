@@ -87,10 +87,27 @@ func find_max_vertical(data [20][20]int) {
   fmt.Println("max v", max_v, "col", max_v_cidx, "row", max_v_i)
 }
 
+// not sure about this part
+// it is yuch
+func find_diag_LR_down(data [20][20]int) {
+  var max_d = 0
+  var row,col int
+  for i:=0;i<20-4;i++ {
+    var prod = data[i][0] * data[i+1][1] * data[i+2][2] * data[i+3][3]
+    if prod > max_d {
+      max_d = prod
+      row = i
+      col = 0
+    }
+  }
+  fmt.Println("find_diag_LR_down",max_d,row,col)
+}
 
 func main() {
   var data [20][20]int = load_data()
 
   find_max_horizontal(data)
   find_max_vertical(data)
+  find_diag_LR_down(data)
+
 }
