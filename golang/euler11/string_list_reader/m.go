@@ -14,6 +14,12 @@ const s string = `1 1 1 1 1
 4 4 4 4 4
 5 5 5 5 5`
 
+func load_data_var(s string, rowsize int, colsize int) (res [][]int) {
+	var output_res [][]int = make([rowsize][colsize]int)
+
+	return output_res
+}
+
 func load_data() (res [5][5]int) {
 	data := strings.Fields(s)
 	var idx,jdx = 0,0
