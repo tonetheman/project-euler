@@ -107,6 +107,11 @@ func find_diag_LR_down(data [20][20]int) {
 }
 
 func find_diag_RL_down(data [20][20]int) {
+  //var max_d, row, col int
+
+  //for i:=3;i<20;i++ {
+  //  var prod = data[0][i]
+//  }
 
 }
 
