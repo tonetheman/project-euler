@@ -1,5 +1,9 @@
 package main
 
+import "strings"
+import "fmt"
+import "strconv"
+
 var s string = `37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538
 74324986199524741059474233309513058123726617309629
@@ -105,5 +109,14 @@ func main() {
   // need the first 10 digits of the sum
   // of the 50 numbers
 
+  var total  int64 = 0
+  fields := strings.Fields(s)
+  for _,b := range fields {
+    fmt.Println(b)
+    // NOT GONNA work numbers are too big :(
+    tmp,_ := strconv.ParseInt(b,10,64)
+    fmt.Println(tmp)
+    total += tmp
+  }
 
 }
