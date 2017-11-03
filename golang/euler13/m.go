@@ -113,10 +113,14 @@ func main() {
   fields := strings.Fields(s)
   for _,b := range fields {
     fmt.Println(b)
-    // NOT GONNA work numbers are too big :(
-    tmp,_ := strconv.ParseInt(b,10,64)
-    fmt.Println(tmp)
-    total += tmp
+    c := b[0:10]
+    fmt.Println(c)
+     tmp,_ := strconv.ParseInt(c,10,64)
+     fmt.Println(tmp)
+     total += tmp
   }
+
+  fmt.Println("total",total)
+
 
 }
