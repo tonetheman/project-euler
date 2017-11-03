@@ -115,9 +115,17 @@ func main() {
     fmt.Println(b)
     c := b[0:10]
     fmt.Println(c)
-     tmp,_ := strconv.ParseInt(c,10,64)
-     fmt.Println(tmp)
-     total += tmp
+    tmp,_ := strconv.ParseInt(c,10,64)
+    fmt.Println(tmp)
+    total += tmp
+    // convert total to string
+    // then take only first 10 digits
+    // then continue:
+    //ts := strconv.Itoa(total)
+    ts := strconv.FormatInt(total, 10)
+    ts = ts[0:10]
+    total,_ = strconv.ParseInt(ts,10,64)
+
   }
 
   fmt.Println("total",total)
