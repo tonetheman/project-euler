@@ -109,10 +109,10 @@ var s string = `37107287533902102798797998220837590246510135740250
 func main() {
   fields := strings.Fields(s)
   //fmt.Println(fields)
-  var total big.Int
+  var total big.Int = new (big.Int)
 
   for i:=0;i<len(fields);i++ {
-    var bi big.Int
+    var bi big.Int = new(big.Int)
     fmt.Println("first int",fields[i])
     bi.SetString(fields[i],10)
     fmt.Println("current int", bi)
@@ -122,4 +122,8 @@ func main() {
     }
   }
   fmt.Println(total)
+
+  var junk = new(big.Int)
+  junk.SetString("37107287533902102798797998220837590246510135740250",10)
+  fmt.Println(junk)
 }
