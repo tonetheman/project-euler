@@ -109,12 +109,34 @@ func main() {
   // need the first 10 digits of the sum
   // of the 50 numbers
 
+  var total int64 = 0
+  fields := strings.Fields(s)
+  for i:=0;i<len(fields);i++ {
+    a0 := fields[i]
+    //a1 := fields[1]
+    fmt.Println("input", a0)
+    fmt.Println("last 10 digits", a0[len(a0)-10:])
+    ai,err := strconv.ParseInt(a0,10,64)
+    if err != nil {
+      fmt.Println("ERR",err)
+    }
+    fmt.Println("convert res", ai)
+    total += ai
+    fmt.Println("total so far",total)
+    fmt.Println()
+    if i>2 {
+      break
+    }
+    }
+    fmt.Println(total)
+
+/*
   var total  int64 = 0
   fields := strings.Fields(s)
-  for _,b := range fields {
-    fmt.Println(b)
-    c := b[0:10]
+  for i :=0 ;i<2;i++ {
+    c := fields[i][0:11]
     fmt.Println(c)
+    // convert to in base 10, 64 bits
     tmp,_ := strconv.ParseInt(c,10,64)
     fmt.Println(tmp)
     total += tmp
@@ -123,12 +145,12 @@ func main() {
     // then continue:
     //ts := strconv.Itoa(total)
     ts := strconv.FormatInt(total, 10)
-    ts = ts[0:10]
+    ts = ts[0:11]
     total,_ = strconv.ParseInt(ts,10,64)
 
   }
 
   fmt.Println("total",total)
-
+*/
 
 }
