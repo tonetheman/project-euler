@@ -108,13 +108,15 @@ var s string = `37107287533902102798797998220837590246510135740250
 
 func main() {
   fields := strings.Fields(s)
-  fmt.Println(fields)
+  //fmt.Println(fields)
   var total big.Int
 
   for i:=0;i<len(fields);i++ {
     var bi big.Int
+    fmt.Println("first int",fields[i])
     bi.SetString(fields[i],10)
-    total.Add(total,bi)
+    fmt.Println("current int", bi)
+    total.Add(&total,&bi)
     if i>1 {
       break
     }
