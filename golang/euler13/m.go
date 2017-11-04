@@ -116,6 +116,7 @@ func main() {
     //a1 := fields[1]
     fmt.Println("input", a0)
     fmt.Println("last 10 digits", a0[len(a0)-10:])
+    a0 = strings.TrimSpace(a0)
     ai,err := strconv.ParseInt(a0,10,64)
     if err != nil {
       fmt.Println("ERR",err)
