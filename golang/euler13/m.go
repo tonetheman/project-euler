@@ -106,53 +106,31 @@ var s string = `37107287533902102798797998220837590246510135740250
 53503534226472524250874054075591789781264330331690`
 
 func main() {
-  // need the first 10 digits of the sum
-  // of the 50 numbers
+	// need the first 10 digits of the sum
+	// of the 50 numbers
 
-  var total int64 = 0
-  fields := strings.Fields(s)
-  for i:=0;i<len(fields);i++ {
-    a0 := fields[i]
-    //a1 := fields[1]
-    fmt.Println("input", a0)
-    fmt.Println("last 10 digits", a0[len(a0)-10:])
-    a0 = strings.TrimSpace(a0)
-    fmt.Printf("after trim %T %s", a0,a0)
-    ai,err := strconv.ParseInt(a0,10,64)
-    if err != nil {
-      fmt.Println("ERR",err)
-    }
-    fmt.Println("convert res", ai)
-    total += ai
-    fmt.Println("total so far",total)
-    fmt.Println()
-    if i>2 {
-      break
-    }
-    }
+	var total int64 = 0
+	fields := strings.Fields(s)
+	for i := 0; i < len(fields); i++ {
+		a0 := fields[i]
+    fmt.Printf("type of a0 %T\n",a0)
+		//a1 := fields[1]
+		fmt.Println("input", a0)
+    a1 := a0[len(a0)-10:]
+		fmt.Println("last 10 digits", a1)
+		ai, err := strconv.ParseInt(a1, 10, 64)
+		if err != nil {
+			fmt.Println("ERR", err)
+		}
+		fmt.Println("convert res", ai)
+		total += ai
+		fmt.Println("total so far", total)
+
+    // get the last 10 digits of total
+    // think i can do that with a mod
+    total = total % 10000000000
     fmt.Println(total)
-
-/*
-  var total  int64 = 0
-  fields := strings.Fields(s)
-  for i :=0 ;i<2;i++ {
-    c := fields[i][0:11]
-    fmt.Println(c)
-    // convert to in base 10, 64 bits
-    tmp,_ := strconv.ParseInt(c,10,64)
-    fmt.Println(tmp)
-    total += tmp
-    // convert total to string
-    // then take only first 10 digits
-    // then continue:
-    //ts := strconv.Itoa(total)
-    ts := strconv.FormatInt(total, 10)
-    ts = ts[0:11]
-    total,_ = strconv.ParseInt(ts,10,64)
-
-  }
-
-  fmt.Println("total",total)
-*/
-
+		fmt.Println()
+	}
+	fmt.Println(total)
 }
