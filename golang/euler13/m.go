@@ -113,16 +113,18 @@ func main() {
 
   for i:=0;i<len(fields);i++ {
     bi := new(big.Int)
-    fmt.Println("first int",fields[i])
     bi.SetString(fields[i],10)
-    fmt.Println("current int", bi)
     total.Add(&total,bi)
-    fmt.Println("total so far",total)
+
+    fmt.Println("first int",fields[i])
+    fmt.Println("current int", bi)
+    fmt.Println("total so far",total.String())
     fmt.Println()
+
     if i>1 {
       break
     }
   }
-  fmt.Println("final", total)
+  fmt.Println("final", total.String())
 
 }
