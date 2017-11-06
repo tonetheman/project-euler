@@ -39,6 +39,7 @@ var mem map[int][]int
 func main() {
   mem = make(map[int][]int)
 
+  /*
   a := Divisors(220)
   mem[220] = a
   fmt.Println(mem)
@@ -51,15 +52,22 @@ func main() {
     fmt.Println("100 not in map")
   }
   fmt.Println(Divisors(2))
+  */
 
+  fmt.Println("saving divs now...")
   // pre compute the divs
   for i:=2;i<10000;i++ {
       mem[i] = Divisors(i)
   }
+  fmt.Println("finished saving")
 
   for i:=2;i<10000;i++ {
-    for j:=2;j<1000;j++ {
-      
+    for j:=2;j<10000;j++ {
+      sum1 := Sum(Divisors(i))
+      sum2 := Sum(Divisors(j))
+      if sum1 == j && sum2 == i {
+        fmt.Println(i,j)
+      }
     }
   }
 }
