@@ -2,37 +2,33 @@ package main
 
 import "fmt"
 
-func handle_seq(n int) int {
-  count := 1
-  var res int = n
-  //fmt.Println("handle_seq called",n)
-  for true {
-    if res == 1 {
-      break
-    }
-    if res%2==0 {
-      //EVEN
-      res = res/2
-      //fmt.Println("E",res)
-      count++
+func coll(n int) (res int) {
+  res = 1
+  for n != 1 {
+    if n%2==0 {
+      n = n/2
     } else {
-      // ODD
-      res = 3*res + 1
-      //fmt.Println("O",res)
-      count++
+      n = 3*n+1
     }
+    res = res + 1
   }
-  return count
+  return
 }
 
+
+
 func main() {
-  const V = 1000000
-  var longest int = 0
-  for i:=2;i<V;i++ {
-    res := handle_seq(i)
-    if res > longest {
-      longest = i
-    }
+
+  longest_seq := 0
+  target := 0
+  for i := 1;i < 1000000; i++ {
+      if coll(i) > longest_seq {
+        longest_seq = coll(i)
+        target = i
+      }
   }
-  fmt.Println("longest less than",V,longest)
+
+  fmt.Println("target",target)
+  fmt.Println("longest_seq",longest_seq)
+
 }
