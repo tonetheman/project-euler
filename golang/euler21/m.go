@@ -45,4 +45,21 @@ func main() {
   fmt.Println(a)
   total := Sum(a)
   fmt.Println(total)
+
+  _,ok := mem[100]
+  if ok == false {
+    fmt.Println("100 not in map")
+  }
+  fmt.Println(Divisors(2))
+
+  // pre compute the divs
+  for i:=2;i<10000;i++ {
+      mem[i] = Divisors(i)
+  }
+
+  for i:=2;i<10000;i++ {
+    for j:=2;j<1000;j++ {
+      
+    }
+  }
 }
