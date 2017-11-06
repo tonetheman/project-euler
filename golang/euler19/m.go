@@ -2,18 +2,30 @@ package main
 
 import "fmt"
 
-const JAN = 1
-const FEB = 2
-const MAR = 3
-const APR = 4
-const MAY = 5
-const JUN = 6
-const JUL = 7
-const AUG = 8
-const SEP = 9
-const OCT = 10
-const NOV = 11
-const DEC = 12
+const (
+  MON = 1
+  TUE = 2
+  WED = 3
+  THU = 4
+  FRI = 5
+  SAT = 6
+  SUN = 7
+)
+
+const (
+  JAN = 1
+  FEB = 2
+  MAR = 3
+  APR = 4
+  MAY = 5
+  JUN = 6
+  JUL = 7
+  AUG = 8
+  SEP = 9
+  OCT = 10
+  NOV = 11
+  DEC = 12
+)
 
 var month_day_counts map[int]int
 
