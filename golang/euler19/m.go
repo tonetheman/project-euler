@@ -27,6 +27,8 @@ const (
   DEC = 12
 )
 
+var DAY_0 = MON // 1 Jan 1900 is monday
+
 var month_day_counts map[int]int
 
 func IsLeapYear(n int) bool {
