@@ -17,12 +17,26 @@ func Divisors(n int) []int {
       index++
     }
   }
-  res[index] = n
-  index++
+  // removed looking
+  // for proper Divisors aka less than n
+  //res[index] = n
+  //index++
   _res := make([]int,index)
   copy(_res,res[0:index])
   return _res
 }
 
+func Sum(a []int) (total int) {
+  total = 0
+  for i:=0;i<len(a);i++ {
+    total += a[i]
+  }
+  return
+}
+
 func main() {
+  a := Divisors(220)
+  fmt.Println(a)
+  total := Sum(a)
+  fmt.Println(total)
 }
