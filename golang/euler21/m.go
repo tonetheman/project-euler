@@ -34,8 +34,14 @@ func Sum(a []int) (total int) {
   return
 }
 
+var mem map[int][]int
+
 func main() {
+  mem = make(map[int][]int)
+
   a := Divisors(220)
+  mem[220] = a
+  fmt.Println(mem)
   fmt.Println(a)
   total := Sum(a)
   fmt.Println(total)
