@@ -1,29 +1,28 @@
 package main
 
 import (
-  "bufio"
+  "encoding/csv"
   "fmt"
-  "os"
-
+  "io/ioutil"
+  "strings"
 )
 
 const filename string = "p022_names.txt"
+
 func main() {
-  inf,err := os.Open(filename)
+  content,err := ioutil.ReadFile(filename)
   if err!=nil {
-    fmt.Println("err",err)
-    return
-  }
-  defer inf.Close()
-
-  scanner := bufio.NewScanner(inf)
-  for scanner.Scan() {
-    ts := scanner.Text()
-    fmt.Println(ts)
+    fmt.Println("err reading",err)
   }
 
-  if err:=scanner.Err(); err!=nil {
-    fmt.Println(err)
+  // now read with csv stuff
+  r := csv.NewReader(strings.NewReader(string(content)))
+  records, err := r.Read()
+  if err!=nil {
+    fmt.Println("err in csv",err)
   }
-  //fmt.Println(inf)
+
+  fmt.Println(records)
+
+
 }
