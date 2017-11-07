@@ -64,11 +64,14 @@ func main() {
   total := 0
   for i:=2;i<10000;i++ {
     for j:=2;j<10000;j++ {
-      sum1 := Sum(mem[i])
-      sum2 := Sum(mem[j])
-      if sum1 == j && sum2 == i {
-        fmt.Println(i,j)
-        total += i
+      if i != j {
+        sum1 := Sum(mem[i])
+        sum2 := Sum(mem[j])
+        if sum1 == j && sum2 == i {
+          fmt.Println(i,j)
+          total += i
+        }
+        
       }
     }
   }
