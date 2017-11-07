@@ -18,7 +18,12 @@ func main() {
 
   scanner := bufio.NewScanner(inf)
   for scanner.Scan() {
-    
+    ts := scanner.Text()
+    fmt.Println(ts)
   }
-  fmt.Println(inf)
+
+  if err:=scanner.Err(); err!=nil {
+    fmt.Println(err)
+  }
+  //fmt.Println(inf)
 }
