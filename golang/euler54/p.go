@@ -56,19 +56,8 @@ func main() {
   fmt.Println()
   fmt.Println(data[0])
   d := strings.Split(data[0]," ")
-  var h0,h1 Hand
-  for i:=0;i<5;i++ {
-    h0.h[i] = d[i]
-  }
-  for i:=5;i<10;i++ {
-    h1.h[i-5] = d[i]
-  }
-  TransformHand(&h0)
-  SortHand(&h0)
+  h0 := d[0:5]
   fmt.Println(h0)
-  fmt.Println()
-  TransformHand(&h1)
-  SortHand(&h1)
+  h1 := d[5:]
   fmt.Println(h1)
-
 }
