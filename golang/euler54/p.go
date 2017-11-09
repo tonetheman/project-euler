@@ -38,6 +38,10 @@ func TransformHand(h0 * Hand) {
   }
 }
 
+func SortHand(h * Hand) {
+  sort.Strings(h.h[:])
+}
+
 func main() {
 
   content,err := ioutil.ReadFile(filename)
@@ -60,11 +64,11 @@ func main() {
     h1.h[i-5] = d[i]
   }
   TransformHand(&h0)
-  sort.Strings(h0.h[:])
+  SortHand(&h0)
   fmt.Println(h0)
   fmt.Println()
   TransformHand(&h1)
-  sort.Strings(h1.h[:])
+  SortHand(&h1)
   fmt.Println(h1)
 
 }
