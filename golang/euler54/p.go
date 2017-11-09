@@ -58,6 +58,10 @@ func main() {
   d := strings.Split(data[0]," ")
   h0 := d[0:5]
   fmt.Println(h0)
-  h1 := d[5:]
+  fmt.Printf("%T %d\n",h0,len(h0))
+  fmt.Println("-----------------------")
+  fmt.Printf("what is about to print?\n")
+  h1 := d[5:10]
   fmt.Println(h1)
+  fmt.Printf("%T %d\n",h1,len(h1))
 }
