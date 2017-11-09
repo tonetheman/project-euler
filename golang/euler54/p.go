@@ -56,12 +56,13 @@ func main() {
   fmt.Println()
   fmt.Println(data[0])
   d := strings.Split(data[0]," ")
+  for i:=0;i<len(d);i++ {
+    d[i] = strings.TrimSpace(d[i])
+  }
   h0 := d[0:5]
-  fmt.Println(h0)
-  fmt.Printf("%T %d\n",h0,len(h0))
-  fmt.Println("-----------------------")
-  fmt.Printf("what is about to print?\n")
   h1 := d[5:10]
+
+  fmt.Println(h0)
   fmt.Println(h1)
-  fmt.Printf("%T %d\n",h1,len(h1))
+
 }
