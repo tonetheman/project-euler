@@ -95,6 +95,8 @@ func ScoreHand(h []string) int {
         h[3][0] == h[4][0] {
           return FULL_HOUSE
         }
+
+        // 3 of kind
       if h[0][0] == h[1][0] &&
         h[1][0] == h[2][0] &&
         h[2][0] != h[3][0] &&
