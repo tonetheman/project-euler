@@ -10,6 +10,8 @@ const filename string = "poker.txt"
 const (
   ROYAL_FLUSH = 0
   UNKNOWN = 1
+  FOUR_OF_KIND = 2
+  FULL_HOUSE = 3
 )
 // not sure i am using this
 type Card struct {
@@ -47,6 +49,8 @@ func SortHand(h []string) {
 
 // expects a sorted/transormed hand
 func ScoreHand(h []string) int {
+
+  // royal flush
   if h[0][0] == 'A' &&
     h[1][0] == 'W' &&
     h[2][0] == 'X' &&
@@ -60,7 +64,32 @@ func ScoreHand(h []string) int {
           return ROYAL_FLUSH
         }
     }
+    // 4 of a kind left
+    if h[0][0] == h[1][0] &&
+      h[1][0] == h[2][0] &&
+      h[2][0] == h[3][0] &&
+      h[3][0] != h[4][0] {
+        return FOUR_OF_KIND;
+      }
+      // 4 of a kind right
+    if h[1][0] == h[2][0] &&
+      h[2][0] == h[3][0] &&
+      h[3][0] == h[4][0] &&
+      h[0][0] != h[1][0] {
+        return FOUR_OF_KIND;
+      }
 
+      // full house
+      if h[0][0] == h[1][0] &&
+        h[1][0] == h[2][0] &&
+        h[3][0] == h[4][0] {
+          return FULL_HOUSE
+        }
+      if h[0][0] == h[1][0] &&
+        h[2][0] == h[3][0] &&
+        h[3][0] == h[4][0] {
+          return FULL_HOUSE
+        }
     return UNKNOWN
 }
 
@@ -89,13 +118,29 @@ func main() {
     fmt.Println("err reading",err)
   }
 
+  royal_flush_count := 0
+  four_of_kind_count := 0
+  full_house_count := 0
   data := strings.Split(string(content),"\n")
   fmt.Println(data[1000]) // this one is empty
   fmt.Println("len",len(data))
   for i:=0;i<len(data);i++ {
     data[i] = strings.TrimSpace(data[i])
     if len(data[i]) >0 {
-      handle_line(data[i])
+      score1,_ := handle_line(data[i])
+      if score1 == ROYAL_FLUSH {
+        royal_flush_count++
+      }
+      if score1 == FOUR_OF_KIND {
+        four_of_kind_count ++
+      }
+      if score1 == FULL_HOUSE {
+        full_house_count ++
+      }
     }
   }
+
+  fmt.Println("full house count", full_house_count)
+  fmt.Println("four of kind count", four_of_kind_count)
+  fmt.Println("royal flush count", royal_flush_count)
 }
