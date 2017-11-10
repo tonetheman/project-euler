@@ -12,6 +12,7 @@ const (
   UNKNOWN = 1
   FOUR_OF_KIND = 2
   FULL_HOUSE = 3
+  THREE_OF_KIND = 4
 )
 // not sure i am using this
 type Card struct {
@@ -94,7 +95,19 @@ func ScoreHand(h []string) int {
         h[3][0] == h[4][0] {
           return FULL_HOUSE
         }
-    return UNKNOWN
+      if h[0][0] == h[1][0] &&
+        h[1][0] == h[2][0] &&
+        h[2][0] != h[3][0] &&
+        h[2][0] != h[4][0] {
+          return THREE_OF_KIND
+        }
+      if h[4][0] == h[3][0] &&
+        h[3][0] == h[2][0] &&
+        h[2][0] != h[1][0] &&
+        h[2][0] != h[0][0] {
+          return THREE_OF_KIND
+        }
+      return UNKNOWN
 }
 
 
