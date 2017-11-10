@@ -49,7 +49,11 @@ func SortHand(h []string) {
 
 // expects a sorted/transormed hand
 func ScoreHand(h []string) int {
-
+  //fmt.Println("enter ScoreHand",h)
+  TransformHand(h)
+  //fmt.Println("after TransformHand",h)
+  SortHand(h)
+  //fmt.Println("after SortHand",h)
   // royal flush
   if h[0][0] == 'A' &&
     h[1][0] == 'W' &&
@@ -94,17 +98,13 @@ func ScoreHand(h []string) int {
 }
 
 
-func handle_line(input_data string) (int, int){
+func HandleLine(input_data string) (int, int){
   d := strings.Split(input_data," ")
   for i:=0;i<len(d);i++ {
     d[i] = strings.TrimSpace(d[i])
   }
   h0 := d[0:5]
   h1 := d[5:10]
-  TransformHand(h0)
-  SortHand(h0)
-  TransformHand(h1)
-  SortHand(h1)
   h0_score := ScoreHand(h0)
   h1_score := ScoreHand(h1)
   return h0_score,h1_score
@@ -118,29 +118,11 @@ func main() {
     fmt.Println("err reading",err)
   }
 
-  royal_flush_count := 0
-  four_of_kind_count := 0
-  full_house_count := 0
   data := strings.Split(string(content),"\n")
   fmt.Println(data[1000]) // this one is empty
   fmt.Println("len",len(data))
-  for i:=0;i<len(data);i++ {
-    data[i] = strings.TrimSpace(data[i])
-    if len(data[i]) >0 {
-      score1,_ := handle_line(data[i])
-      if score1 == ROYAL_FLUSH {
-        royal_flush_count++
-      }
-      if score1 == FOUR_OF_KIND {
-        four_of_kind_count ++
-      }
-      if score1 == FULL_HOUSE {
-        full_house_count ++
-      }
-    }
+  data[0] = strings.TrimSpace(data[0])
+  if len(data[0]) >0 {
+    HandleLine(data[0])
   }
-
-  fmt.Println("full house count", full_house_count)
-  fmt.Println("four of kind count", four_of_kind_count)
-  fmt.Println("royal flush count", royal_flush_count)
 }
