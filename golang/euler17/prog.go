@@ -14,6 +14,10 @@ func ConvertNumber(n int) string {
       leading_digit := n/10 * 10
       return simple[leading_digit] + " " + simple[digit_one]
     }
+    if n>=100 {
+      ms_digit := n/100
+      return simple[ms_digit] + " hundred and "
+    }
     return "UNK"
 }
 func FillOutSimple() {
@@ -49,8 +53,10 @@ func FillOutSimple() {
 
 func main() {
   FillOutSimple()
-  for i := 1;i<100;i++ {
-    fmt.Println(ConvertNumber(i))
-
-  }
+  //for i := 1;i<100;i++ {
+  //  fmt.Println(ConvertNumber(i))
+//
+//  }
+  fmt.Println(ConvertNumber(109))
+  fmt.Println(ConvertNumber(567))
 }
