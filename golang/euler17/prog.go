@@ -16,7 +16,16 @@ func ConvertNumber(n int) string {
     }
     if n>=100 {
       ms_digit := n/100
-      return simple[ms_digit] + " hundred and "
+      tens := n%100
+      var last string = ""
+      if tens <=20 {
+        last = simple[tens]
+      } else {
+        digit_one := tens%10
+        leading_digit := tens/10 * 10
+        last = simple[leading_digit] + " " + simple[digit_one]
+      }
+      return simple[ms_digit] + " hundred and " + last
     }
     return "UNK"
 }
