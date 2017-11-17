@@ -6,6 +6,27 @@ func pent(n int) int {
 	return n * (3 *n -1)/2
 }
 
+func checkPentSmart(n int) bool {
+	if nums[COUNTER/2] < n {
+		// it is in the lower half
+		tmp := nums[0:COUNTER/2]
+		for i := 0;i<len(tmp);i++ {
+			if tmp[i]==n {
+				return true
+			}
+		}
+	} else {
+		// it is in the top half
+		tmp := nums[COUNTER/2:]
+		for i := 0;i<len(tmp);i++ {
+			if tmp[i]==n {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func checkPent(n int) bool {
 	for i:=0;i<COUNTER;i++ {
 		if nums[i] == n {
@@ -15,7 +36,7 @@ func checkPent(n int) bool {
 	return false
 }
 
-const COUNTER = 10000
+const COUNTER = 1000
 
 var nums [COUNTER]int
 
@@ -33,8 +54,8 @@ func main() {
 				num2 := nums[j]
 				sum := num1+num2
 				diff := num1-num2
-				if checkPent(sum) {
-					if checkPent(diff) {
+				if checkPentSmart(sum) {
+					if checkPentSmart(diff) {
 						fmt.Println("Possible",num1,num2)		
 					}
 					
