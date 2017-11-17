@@ -37,6 +37,16 @@ func main() {
 			pentIndex++
 		}
 
+		// now check hexaIndex
+		computedHexa := 0
+		for computedHexa < computedTri {
+			computedHexa = hexa(hexaIndex)
+			if computedHexa == computedTri {
+				fmt.Println("FOUND ONE!")
+			}
+			fmt.Println("computed hexa", computedHexa)
+			hexaIndex++
+		}
 		counter++
 		if counter > 1 {
 			break
