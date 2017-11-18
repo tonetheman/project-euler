@@ -3,62 +3,41 @@ package main
 import "fmt"
 
 func pent(n int) int {
-	return n * (3 *n -1)/2
+	return n * (3*n - 1) / 2
 }
 
-func checkPentSmart(n int) bool {
-	if nums[COUNTER/2] < n {
-		// it is in the lower half
-		tmp := nums[0:COUNTER/2]
-		for i := 0;i<len(tmp);i++ {
-			if tmp[i]==n {
-				return true
-			}
-		}
-	} else {
-		// it is in the top half
-		tmp := nums[COUNTER/2:]
-		for i := 0;i<len(tmp);i++ {
-			if tmp[i]==n {
-				return true
-			}
-		}
-	}
-	return false
-}
-
-func checkPent(n int) bool {
-	for i:=0;i<COUNTER;i++ {
-		if nums[i] == n {
-			return true
-		}
-	}
-	return false
-}
-
-const COUNTER = 1000
+const COUNTER = 10000
 
 var nums [COUNTER]int
+var numMap map[int]int
 
 func main() {
-	for i :=1; i<COUNTER+1; i++ {
-		nums[i-1] = pent(i)
+	numMap = make(map[int]int)
+
+	for i := 1; i < COUNTER+1; i++ {
+		tmp := pent(i)
+		nums[i-1] = tmp
+		numMap[tmp] = 1
 	}
 
 	//fmt.Println(nums)
 
-	for i:=0;i<COUNTER;i++ {
-		for j:=0;j<COUNTER;j++ {
-			if i!=j {
+	//fmt.Println(numMap)
+
+	for i := 0; i < COUNTER; i++ {
+		for j := 0; j < COUNTER; j++ {
+			if i != j {
+
 				num1 := nums[i]
 				num2 := nums[j]
-				sum := num1+num2
-				diff := num1-num2
-				if checkPentSmart(sum) {
-					if checkPentSmart(diff) {
-						fmt.Println("Possible",num1,num2)		
-					}
-					
+				sum := num1 + num2
+				diff := num1 - num2
+
+				// this checks if sum is in the map
+				if numMap[sum] != 0 && numMap[diff] != 0 {
+					fmt.Println("found one", num1, num2, sum, diff)
+					fmt.Println("num1 - num2", num1-num2)
+					fmt.Println("num2-num1", num2-num1)
 				}
 			}
 		}
