@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func isPal(n int) bool {
 
 	// this is where we figure out the lead digit
@@ -33,5 +35,7 @@ func isLychrel(n int) bool {
 
 func main() {
 
-	isPal(22345)
+	fmt.Println("tony")
+	fmt.Println(isPal(22345))
+	fmt.Println(isPal(123321))
 }
