@@ -7,10 +7,10 @@ import (
 
 const debug = true
 
-func isPal(n int) bool {
+func isPal(n int64) bool {
 
 	// this is where we figure out the lead digit
-	var divisor = 1
+	var divisor int64 = 1
 	for n/divisor >= 10 {
 		divisor *= 10
 	}
@@ -43,7 +43,7 @@ func Reverse(s string) string {
 	return string(r)
 }
 
-func isLychrel(n int) int {
+func isLychrel(n int64) int {
 	if isPal(n) {
 		return 1
 	}
@@ -75,15 +75,17 @@ func isLychrel(n int) int {
 	return count
 }
 
+func testit() {
+	for i := 10; i < 100; i++ {
+		if isLychrel(i) > 30 {
+			fmt.Println(i)
+		}
+	}
+}
+
 func main() {
 
-	/*
-		for i := 10; i < 10000; i++ {
-			if isLychrel(i) > 30 {
-				fmt.Println(i)
-			}
-		}
-	*/
-	fmt.Println(isLychrel(545))
+	fmt.Println(isLychrel(98))
+	//fmt.Println(isLychrel(545))
 
 }
