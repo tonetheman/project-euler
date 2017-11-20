@@ -17,9 +17,9 @@ func isPalBig(n big.Int) bool {
 	for {
 		var tmp big.Int
 		tmp.Div(&n, &divisor)
-		fmt.Println("tmp", tmp.String())
+		//fmt.Println("tmp", tmp.String())
 		res := tmp.Cmp(&TEN)
-		fmt.Println("res from cmp", res)
+		//fmt.Println("res from cmp", res)
 		if res == -1 {
 			break
 		}
@@ -29,9 +29,35 @@ func isPalBig(n big.Int) bool {
 		//	break
 		//}
 	}
-	fmt.Println("divisor", divisor.String())
+	//fmt.Println("divisor", divisor.String())
 
-	return false
+	var ZERO big.Int
+	var HUNDRED big.Int
+	HUNDRED.SetInt64(100)
+
+	for {
+		// this is the check n != 0
+		tmp := n.Cmp(&ZERO)
+		if tmp == 0 {
+			break
+		}
+
+		var leading big.Int
+		leading.Div(&n, &divisor)
+		var trailing big.Int
+		trailing.Mod(&n, &TEN)
+
+		res := leading.Cmp(&trailing)
+		if res != 0 {
+			return false
+		}
+
+		n.Mod(&n, &divisor)
+		n.Div(&n, &TEN)
+		divisor.Div(&divisor, &HUNDRED)
+
+	}
+	return true
 }
 
 func isPal(n int64) bool {
@@ -68,6 +94,29 @@ func Reverse(s string) string {
 		r[i], r[j] = r[j], r[i]
 	}
 	return string(r)
+}
+
+func isLychrelBig(n big.Int) int {
+	if isPalBig(n) {
+		return 1
+	}
+	count := 0
+	for count < 50 {
+		ns := n.String()
+		nsr := Reverse(ns)
+		var r big.Int
+		r.SetString(nsr, 10)
+		var newN big.Int
+		newN.SetInt64(0)
+		newN.Add(&r, &n)
+		newIsPal := isPalBig(newN)
+		count++
+		if newIsPal {
+			break
+		}
+		n = newN
+	}
+	return count
 }
 
 func isLychrel(n int64) int {
@@ -117,9 +166,10 @@ func testit() {
 func main() {
 
 	var i big.Int
-	i.SetString("32190321903920", 10)
+	i.SetString("98", 10)
 	fmt.Println(i.String())
-	isPalBig(i)
+	fmt.Println(isPalBig(i))
+	fmt.Println(isLychrelBig(i))
 	//testit()
 	//fmt.Println(isLychrel(98))
 	//fmt.Println(isLychrel(545))
