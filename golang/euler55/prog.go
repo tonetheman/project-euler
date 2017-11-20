@@ -2,10 +2,37 @@ package main
 
 import (
 	"fmt"
+	"math/big"
 	"strconv"
 )
 
 const debug = false
+
+func isPalBig(n big.Int) bool {
+	var TEN big.Int
+	TEN.SetInt64(10)
+	var divisor big.Int
+	divisor.SetInt64(1)
+	//var count int = 0
+	for {
+		var tmp big.Int
+		tmp.Div(&n, &divisor)
+		fmt.Println("tmp", tmp.String())
+		res := tmp.Cmp(&TEN)
+		fmt.Println("res from cmp", res)
+		if res == -1 {
+			break
+		}
+		divisor.Mul(&divisor, &TEN)
+		//count++
+		//if count > 10 {
+		//	break
+		//}
+	}
+	fmt.Println("divisor", divisor.String())
+
+	return false
+}
 
 func isPal(n int64) bool {
 
@@ -89,7 +116,11 @@ func testit() {
 
 func main() {
 
-	testit()
+	var i big.Int
+	i.SetString("32190321903920", 10)
+	fmt.Println(i.String())
+	isPalBig(i)
+	//testit()
 	//fmt.Println(isLychrel(98))
 	//fmt.Println(isLychrel(545))
 
