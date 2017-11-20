@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-const debug = true
+const debug = false
 
 func isPal(n int64) bool {
 
@@ -54,8 +54,8 @@ func isLychrel(n int64) int {
 	for count < 50 {
 		ns := strconv.FormatInt(int64(n), 10)
 		nsr := Reverse(ns)
-		r, _ := strconv.ParseInt(nsr, 10, 32)
-		newN := int(r) + n
+		r, _ := strconv.ParseInt(nsr, 10, 64)
+		newN := r + n
 		newIsPal := isPal(newN)
 		count++ // this iteration has been done
 
@@ -76,16 +76,21 @@ func isLychrel(n int64) int {
 }
 
 func testit() {
-	for i := 10; i < 100; i++ {
+	var i int64
+	var count int = 0
+	for i = 10; i < 10000; i++ {
 		if isLychrel(i) > 30 {
 			fmt.Println(i)
+			count++
 		}
 	}
+	fmt.Println("total lychrel numbers", count)
 }
 
 func main() {
 
-	fmt.Println(isLychrel(98))
+	testit()
+	//fmt.Println(isLychrel(98))
 	//fmt.Println(isLychrel(545))
 
 }
