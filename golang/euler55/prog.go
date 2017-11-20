@@ -5,7 +5,7 @@ import (
 	"math/big"
 )
 
-const debug = false
+const debug = true
 
 func isPalBig(n big.Int) bool {
 	var TEN big.Int
@@ -86,7 +86,7 @@ func isPal(n int64) bool {
 	return true
 }
 
-// i did not write this function
+// Reverse i did not write this function
 func Reverse(s string) string {
 	r := []rune(s)
 	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
@@ -95,27 +95,36 @@ func Reverse(s string) string {
 	return string(r)
 }
 
+// this is a transalation of the function
+// that only uses ints
+// think I missed something ha
 func isLychrelBig(n big.Int) int {
-	//fmt.Println("isLychrelbig called", n.String())
-	var savedN big.Int
-	savedN.Set(&n)
-	if isPalBig(n) {
-		return 1
-	}
-	n.Set(&savedN)
+	fmt.Println("isLychrelbig called", n.String())
+
+	// TONY README
+	// THIS SECTION OF CODE WAS THE PROBLEM
+	// a pal number can be isLychrel
+	// this code was shorting it and returning 1
+	// thereby failing the 50
+	//var savedN big.Int
+	//savedN.Set(&n)
+	//if isPalBig(n) {
+	//	return 1
+	//}
+	//n.Set(&savedN)
 	count := 0
 	for count < 50 {
-		//fmt.Println("Value of n at the top of loop", n.String())
+		fmt.Println("Value of n at the top of loop", n.String())
 		ns := n.String()
 		nsr := Reverse(ns)
-		//fmt.Println("\tns and nsr", ns, nsr)
+		fmt.Println("\tns and nsr", ns, nsr)
 		var r big.Int
 		r.SetString(nsr, 10)
-		//fmt.Println("\tvalue of r", r.String())
+		fmt.Println("\tvalue of r", r.String())
 		var newN big.Int
 		newN.SetInt64(0)
 		newN.Add(&r, &n)
-		//fmt.Println("\tvalue of newN", newN.String())
+		fmt.Println("\tvalue of newN", newN.String())
 		var savedNewN big.Int
 		savedNewN.Set(&newN)
 		newIsPal := isPalBig(newN)
@@ -123,9 +132,9 @@ func isLychrelBig(n big.Int) int {
 		if newIsPal {
 			break
 		}
-		//fmt.Println("\tAbout to set n to newN now", n.String(), newN.String())
+		fmt.Println("\tAbout to set n to newN now", n.String(), newN.String())
 		n.Set(&savedNewN)
-		//fmt.Println()
+		fmt.Println()
 	}
 	return count
 }
@@ -181,7 +190,7 @@ func testitBig() {
 	for i := 10; i < 10000; i++ {
 		var tmp big.Int
 		tmp.SetInt64(int64(i))
-		if isLychrelBig(tmp) > 30 {
+		if isLychrelBig(tmp) > 48 {
 			fmt.Println(i)
 			count++
 		}
@@ -195,4 +204,9 @@ func main() {
 	//i.SetInt64(3493)
 	//fmt.Println(isLychrelBig(i))
 	testitBig()
+
+	//var i big.Int
+	//i.SetInt64(4994)
+	//fmt.Println(isLychrelBig(i))
+
 }
