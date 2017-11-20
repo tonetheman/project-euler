@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/big"
-	"strconv"
 )
 
 const debug = false
@@ -97,28 +96,41 @@ func Reverse(s string) string {
 }
 
 func isLychrelBig(n big.Int) int {
+	//fmt.Println("isLychrelbig called", n.String())
+	var savedN big.Int
+	savedN.Set(&n)
 	if isPalBig(n) {
 		return 1
 	}
+	n.Set(&savedN)
 	count := 0
 	for count < 50 {
+		//fmt.Println("Value of n at the top of loop", n.String())
 		ns := n.String()
 		nsr := Reverse(ns)
+		//fmt.Println("\tns and nsr", ns, nsr)
 		var r big.Int
 		r.SetString(nsr, 10)
+		//fmt.Println("\tvalue of r", r.String())
 		var newN big.Int
 		newN.SetInt64(0)
 		newN.Add(&r, &n)
+		//fmt.Println("\tvalue of newN", newN.String())
+		var savedNewN big.Int
+		savedNewN.Set(&newN)
 		newIsPal := isPalBig(newN)
 		count++
 		if newIsPal {
 			break
 		}
-		n = newN
+		//fmt.Println("\tAbout to set n to newN now", n.String(), newN.String())
+		n.Set(&savedNewN)
+		//fmt.Println()
 	}
 	return count
 }
 
+/*
 func isLychrel(n int64) int {
 	if isPal(n) {
 		return 1
@@ -150,7 +162,8 @@ func isLychrel(n int64) int {
 	}
 	return count
 }
-
+*/
+/*
 func testit() {
 	var i int64
 	var count int = 0
@@ -162,16 +175,24 @@ func testit() {
 	}
 	fmt.Println("total lychrel numbers", count)
 }
+*/
+func testitBig() {
+	var count int = 0
+	for i := 10; i < 10000; i++ {
+		var tmp big.Int
+		tmp.SetInt64(int64(i))
+		if isLychrelBig(tmp) > 30 {
+			fmt.Println(i)
+			count++
+		}
+	}
+	fmt.Println("total lychrel numbers", count)
+}
 
 func main() {
 
-	var i big.Int
-	i.SetString("98", 10)
-	fmt.Println(i.String())
-	fmt.Println(isPalBig(i))
-	fmt.Println(isLychrelBig(i))
-	//testit()
-	//fmt.Println(isLychrel(98))
-	//fmt.Println(isLychrel(545))
-
+	//var i big.Int
+	//i.SetInt64(3493)
+	//fmt.Println(isLychrelBig(i))
+	testitBig()
 }
