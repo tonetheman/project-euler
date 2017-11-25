@@ -28,68 +28,9 @@ type Hand struct {
 	h [5]string
 }
 
-func translateRank(s string) int {
-	var c = s[0]
-	if c == 'A' {
-		return 1
-	}
-	if c == '2' {
-		return 2
-	}
-	if c == '3' {
-		return 3
-	}
-	if c == '4' {
-		return 4
-	}
-	if c == '5' {
-		return 5
-	}
-	if c == '6' {
-		return 6
-	}
-	if c == '7' {
-		return 7
-	}
-	if c == '8' {
-		return 8
-	}
-	if c == '9' {
-		return 9
-	}
-	if c == 'T' {
-		return 10
-	}
-	if c == 'J' {
-		return 11
-	}
-	if c == 'Q' {
-		return 12
-	}
-	if c == 'K' {
-		return 13
-	}
-	return -1
-}
-
-func translateSuit(s string) int {
-	if s[1] == 'C' {
-		return 0
-	}
-	if s[1] == 'S' {
-		return 1
-	}
-	if s[2] == 'D' {
-		return 2
-	}
-	if s[3] == 'H' {
-		return 3
-	}
-	return -1
-}
-
 func newHand(h []string) [5]Card {
 	var cards [5]Card
+	fmt.Println("newHand input h", h)
 	cards[0] = Card{translateRank(h[0]), translateSuit(h[0])}
 	cards[1] = Card{translateRank(h[1]), translateSuit(h[1])}
 	cards[2] = Card{translateRank(h[2]), translateSuit(h[2])}
@@ -124,6 +65,10 @@ func SortHand(h []string) {
 
 // expects a sorted/transormed hand
 func ScoreHand(h []string) int {
+
+	v := newHand(h)
+	fmt.Println("newHand", v)
+
 	//fmt.Println("enter ScoreHand",h)
 	TransformHand(h)
 	//fmt.Println("after TransformHand",h)
