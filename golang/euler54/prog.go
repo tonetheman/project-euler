@@ -18,6 +18,7 @@ const (
 	FLUSH          = 6
 	STRAIGHT       = 7
 	TWO_PAIR       = 8
+	ONE_PAIR       = 9
 )
 
 // not sure i am using this
@@ -256,6 +257,18 @@ func ScoreHand(h []string) int {
 	}
 
 	// one pair
+	if v[0].rank == v[1].rank {
+		return ONE_PAIR
+	}
+	if v[1].rank == v[2].rank {
+		return ONE_PAIR
+	}
+	if v[2].rank == v[3].rank {
+		return ONE_PAIR
+	}
+	if v[3].rank == v[4].rank {
+		return ONE_PAIR
+	}
 
 	// high card
 

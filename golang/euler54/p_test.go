@@ -106,3 +106,18 @@ func TestTwoPair(t *testing.T) {
 	r("4C 4C 6D TH TS")
 	r("7C 8H 8D 9C 9S")
 }
+
+func TestOnePair(t *testing.T) {
+	r := func(s string) {
+		f := strings.Fields(s)
+		v := ScoreHand(f)
+		if v != ONE_PAIR {
+			t.Error("failed one pair", s, v)
+		}
+	}
+	r("2C 2H 3D 5C TH")
+	r("3D 2C 2H 5C TH")
+	r("3D 5C 2C 2H TH")
+	r("3D 5C TH 2C 2H")
+
+}
