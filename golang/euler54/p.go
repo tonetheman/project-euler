@@ -24,21 +24,19 @@ type Card struct {
 }
 
 // using this
-type Hand struct {
-	h [5]Card
-}
+type Hand [5]Card
 
-func (h Hand) Len() int {
-	return len(h.h)
+func (h *Hand) Len() int {
+	return len(h)
 }
-func (h Hand) Swap(i, j int) {
-	fmt.Println("\t\tswap called i,j", i, j)
-	h.h[i].rank, h.h[j].rank = h.h[j].rank, h.h[i].rank
-	h.h[i].suit, h.h[j].suit = h.h[j].suit, h.h[i].suit
+func (h *Hand) Swap(i, j int) {
+	//fmt.Println("\t\tswap called i,j", i, j)
+	h[i].rank, h[j].rank = h[j].rank, h[i].rank
+	h[i].suit, h[j].suit = h[j].suit, h[i].suit
 }
-func (h Hand) Less(i, j int) bool {
-	fmt.Println("\tLess is called i,j", i, j)
-	return h.h[i].rank < h.h[j].rank
+func (h *Hand) Less(i, j int) bool {
+	//fmt.Println("\tLess is called i,j", i, j)
+	return h[i].rank < h[j].rank
 }
 
 func newCard(s string) Card {
@@ -47,13 +45,13 @@ func newCard(s string) Card {
 
 func newHand(h []string) Hand {
 	var cards Hand
-	fmt.Println("newHand input h", h)
-	fmt.Println("newHand cards", cards)
-	cards.h[0] = newCard(h[0])
-	cards.h[1] = newCard(h[1])
-	cards.h[2] = newCard(h[2])
-	cards.h[3] = newCard(h[3])
-	cards.h[4] = newCard(h[4])
+	//fmt.Println("newHand input h", h)
+	//fmt.Println("newHand cards", cards)
+	cards[0] = newCard(h[0])
+	cards[1] = newCard(h[1])
+	cards[2] = newCard(h[2])
+	cards[3] = newCard(h[3])
+	cards[4] = newCard(h[4])
 	return cards
 }
 
@@ -67,7 +65,7 @@ func ScoreHand(h []string) int {
 	v := newHand(h)
 	fmt.Println("newHand", v)
 
-	sort.Sort(v)
+	sort.Sort(&v)
 	fmt.Println("sorted", v)
 	return 0
 
