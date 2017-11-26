@@ -93,3 +93,16 @@ func TestStraight(t *testing.T) {
 	r("AD 2C 3S 4H 5H")
 	r("TD JD QD KD AC")
 }
+
+func TestTwoPair(t *testing.T) {
+	r := func(s string) {
+		f := strings.Fields(s)
+		v := ScoreHand(f)
+		if v != TWO_PAIR {
+			t.Error("failed two pair", s, v)
+		}
+	}
+	r("2C 3C 2D 3D 9H")
+	r("4C 4C 6D TH TS")
+	r("7C 8H 8D 9C 9S")
+}

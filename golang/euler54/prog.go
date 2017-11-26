@@ -17,6 +17,7 @@ const (
 	THREE_OF_KIND  = 5
 	FLUSH          = 6
 	STRAIGHT       = 7
+	TWO_PAIR       = 8
 )
 
 // not sure i am using this
@@ -202,7 +203,6 @@ func ScoreHand(h []string) int {
 		return FLUSH
 	}
 
-	fmt.Println("checking for straight", v)
 	// straight
 	if v[0].rank == v[1].rank-1 &&
 		v[1].rank == v[2].rank-1 &&
@@ -233,6 +233,27 @@ func ScoreHand(h []string) int {
 	}
 
 	// two pair
+	// 3 cases here 2 x 2
+	if v[0].rank == v[1].rank &&
+		v[2].rank != v[1].rank &&
+		v[2].rank != v[3].rank &&
+		v[3].rank == v[4].rank {
+		return TWO_PAIR
+	}
+	// 2 2 x
+	if v[0].rank == v[1].rank &&
+		v[2].rank == v[3].rank &&
+		v[4].rank != v[3].rank &&
+		v[4].rank != v[1].rank {
+		return TWO_PAIR
+	}
+	// x 2 2
+	if v[0].rank != v[1].rank &&
+		v[0].rank != v[3].rank &&
+		v[1].rank == v[2].rank &&
+		v[3].rank == v[4].rank {
+		return TWO_PAIR
+	}
 
 	// one pair
 
@@ -262,12 +283,20 @@ func main() {
 		fmt.Println("err reading", err)
 	}
 
+	var unknownCount = 0
+	var totalCount = 0
+
 	data := strings.Split(string(content), "\n")
 	fmt.Println(data[1000]) // this one is empty
 	fmt.Println("len", len(data))
 	data[0] = strings.TrimSpace(data[0])
 	if len(data[0]) > 0 {
+		totalCount++
 		fmt.Println("calling HandleLine")
-		HandleLine(data[0])
+		h0Score, _ := HandleLine(data[0])
+		if h0Score == UNKNOWN {
+			unknownCount++
+		}
 	}
+	fmt.Println("unknown hands", unknownCount)
 }
