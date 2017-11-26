@@ -10,7 +10,7 @@ func TestRoyalFlush(t *testing.T) {
 		f := strings.Fields(s)
 		fmt.Println("ROYAL_FLUSH testing")
 		v := ScoreHand(f)
-		if v != ROYAL_FLUSH {
+		if v != royalFlush {
 			t.Error("expected royal flush got", v)
 		}
 	}()
@@ -22,7 +22,7 @@ func TestScoreFullHouse1(t *testing.T) {
 	f := strings.Fields(s)
 	fmt.Println("FULL_HOUSE testing", f)
 	v := ScoreHand(f)
-	if v != FULL_HOUSE {
+	if v != fullHouse {
 		t.Error("expected FULL_HOUSE(3) got", v)
 	}
 }
@@ -32,7 +32,7 @@ func TestScoreFullHouse2(t *testing.T) {
 	f := strings.Fields(s)
 	fmt.Println("FULL_HOUSE testing", f)
 	v := ScoreHand(f)
-	if v != FULL_HOUSE {
+	if v != fullHouse {
 		t.Error("expected FULL_HOUSE(3) got", v)
 	}
 }
@@ -42,7 +42,7 @@ func TestScoreFullHouse3(t *testing.T) {
 	f := strings.Fields(s)
 	fmt.Println("FULL_HOUSE testing", f)
 	v := ScoreHand(f)
-	if v != FULL_HOUSE {
+	if v != fullHouse {
 		t.Error("expected FULL_HOUSE(3) got", v)
 	}
 }
@@ -52,7 +52,7 @@ func TestFourOfKind(t *testing.T) {
 	f := strings.Fields(s)
 	fmt.Println("FOUR OF KIND TESTING", f)
 	v := ScoreHand(f)
-	if v != FOUR_OF_KIND {
+	if v != fourOfKind {
 		t.Error("expect four of kind got", v)
 	}
 }
@@ -62,7 +62,7 @@ func TestThreeOfKind(t *testing.T) {
 	s := "2H 2C 2S 5D TC"
 	f := strings.Fields(s)
 	v := ScoreHand(f)
-	if v != THREE_OF_KIND {
+	if v != threeOfKind {
 		t.Error("failed 3 of kind", v)
 	}
 }
@@ -71,7 +71,7 @@ func TestStraightFlush(t *testing.T) {
 	r := func(s string) {
 		f := strings.Fields(s)
 		v := ScoreHand(f)
-		if v != STRAIGHT_FLUSH {
+		if v != straightFlush {
 			t.Error("failed straight flush", s, v)
 		}
 	}
@@ -85,7 +85,7 @@ func TestStraight(t *testing.T) {
 	r := func(s string) {
 		f := strings.Fields(s)
 		v := ScoreHand(f)
-		if v != STRAIGHT {
+		if v != straight {
 			t.Error("failed straight", s, v)
 		}
 	}
@@ -98,7 +98,7 @@ func TestTwoPair(t *testing.T) {
 	r := func(s string) {
 		f := strings.Fields(s)
 		v := ScoreHand(f)
-		if v != TWO_PAIR {
+		if v != twoPair {
 			t.Error("failed two pair", s, v)
 		}
 	}
@@ -111,7 +111,7 @@ func TestOnePair(t *testing.T) {
 	r := func(s string) {
 		f := strings.Fields(s)
 		v := ScoreHand(f)
-		if v != ONE_PAIR {
+		if v != onePair {
 			t.Error("failed one pair", s, v)
 		}
 	}

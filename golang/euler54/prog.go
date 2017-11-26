@@ -9,16 +9,16 @@ import (
 
 const filename string = "poker.txt"
 const (
-	UNKNOWN        = 0
-	ROYAL_FLUSH    = 20
-	STRAIGHT_FLUSH = 18
-	FOUR_OF_KIND   = 17
-	FULL_HOUSE     = 16
-	FLUSH          = 15
-	STRAIGHT       = 14
-	THREE_OF_KIND  = 13
-	TWO_PAIR       = 12
-	ONE_PAIR       = 11
+	unknown       = 0
+	royalFlush    = 20
+	straightFlush = 18
+	fourOfKind    = 17
+	fullHouse     = 16
+	flush         = 15
+	straight      = 14
+	threeOfKind   = 13
+	twoPair       = 12
+	onePair       = 11
 )
 
 // Card card struct here
@@ -42,17 +42,17 @@ func (h *Hand) Less(i, j int) bool {
 }
 
 const (
-	ACE   = 1
-	TEN   = 10
-	JACK  = 11
-	QUEEN = 12
-	KING  = 13
+	ace   = 1
+	ten   = 10
+	jack  = 11
+	queen = 12
+	king  = 13
 )
 
 func translateRank(s string) int {
 	var c = s[0]
 	if c == 'A' {
-		return ACE
+		return ace
 	}
 	if c == '2' {
 		return 2
@@ -82,13 +82,13 @@ func translateRank(s string) int {
 		return 10
 	}
 	if c == 'J' {
-		return JACK
+		return jack
 	}
 	if c == 'Q' {
-		return QUEEN
+		return queen
 	}
 	if c == 'K' {
-		return KING
+		return king
 	}
 	return -1
 }
@@ -143,12 +143,12 @@ func ScoreHand(h []string) int {
 	isFlush := checkFlush(v)
 
 	if isFlush {
-		if v[0].rank == ACE &&
-			v[1].rank == TEN &&
-			v[2].rank == JACK &&
-			v[3].rank == QUEEN &&
-			v[4].rank == KING {
-			return ROYAL_FLUSH
+		if v[0].rank == ace &&
+			v[1].rank == ten &&
+			v[2].rank == jack &&
+			v[3].rank == queen &&
+			v[4].rank == king {
+			return royalFlush
 		}
 	}
 
@@ -158,7 +158,7 @@ func ScoreHand(h []string) int {
 			v[1].rank == v[2].rank-1 &&
 			v[2].rank == v[3].rank-1 &&
 			v[3].rank == v[4].rank-1 {
-			return STRAIGHT_FLUSH
+			return straightFlush
 		}
 	}
 	// NOTE: do not need the ACE leading case
@@ -169,31 +169,31 @@ func ScoreHand(h []string) int {
 		v[1].rank == v[2].rank &&
 		v[2].rank == v[3].rank &&
 		v[3].rank != v[4].rank {
-		return FOUR_OF_KIND
+		return fourOfKind
 	}
 	// 4 of a kind right
 	if v[1].rank == v[2].rank &&
 		v[2].rank == v[3].rank &&
 		v[3].rank == v[4].rank &&
 		v[0].rank != v[1].rank {
-		return FOUR_OF_KIND
+		return fourOfKind
 	}
 
 	// full house
 	if v[0].rank == v[1].rank &&
 		v[1].rank == v[2].rank &&
 		v[3].rank == v[4].rank {
-		return FULL_HOUSE
+		return fullHouse
 	}
 	if v[0].rank == v[1].rank &&
 		v[2].rank == v[3].rank &&
 		v[3].rank == v[4].rank {
-		return FULL_HOUSE
+		return fullHouse
 	}
 
 	// flush
 	if isFlush {
-		return FLUSH
+		return flush
 	}
 
 	// straight
@@ -201,14 +201,14 @@ func ScoreHand(h []string) int {
 		v[1].rank == v[2].rank-1 &&
 		v[2].rank == v[3].rank-1 &&
 		v[3].rank == v[4].rank-1 {
-		return STRAIGHT
+		return straight
 	}
 	// checking for the case where the ACE leads
-	if v[0].rank == ACE &&
+	if v[0].rank == ace &&
 		v[1].rank == v[2].rank-1 &&
 		v[2].rank == v[3].rank-1 &&
 		v[3].rank == v[4].rank-1 {
-		return STRAIGHT
+		return straight
 	}
 
 	// 3 of kind
@@ -216,13 +216,13 @@ func ScoreHand(h []string) int {
 		v[1].rank == v[2].rank &&
 		v[2].rank != v[3].rank &&
 		v[2].rank != v[4].rank {
-		return THREE_OF_KIND
+		return threeOfKind
 	}
 	if v[4].rank == v[3].rank &&
 		v[3].rank == v[2].rank &&
 		v[2].rank != v[1].rank &&
 		v[2].rank != v[0].rank {
-		return THREE_OF_KIND
+		return threeOfKind
 	}
 
 	// two pair
@@ -231,48 +231,48 @@ func ScoreHand(h []string) int {
 		v[2].rank != v[1].rank &&
 		v[2].rank != v[3].rank &&
 		v[3].rank == v[4].rank {
-		return TWO_PAIR
+		return twoPair
 	}
 	// 2 2 x
 	if v[0].rank == v[1].rank &&
 		v[2].rank == v[3].rank &&
 		v[4].rank != v[3].rank &&
 		v[4].rank != v[1].rank {
-		return TWO_PAIR
+		return twoPair
 	}
 	// x 2 2
 	if v[0].rank != v[1].rank &&
 		v[0].rank != v[3].rank &&
 		v[1].rank == v[2].rank &&
 		v[3].rank == v[4].rank {
-		return TWO_PAIR
+		return twoPair
 	}
 
 	// one pair
 	if v[0].rank == v[1].rank {
-		return ONE_PAIR
+		return onePair
 	}
 	if v[1].rank == v[2].rank {
-		return ONE_PAIR
+		return onePair
 	}
 	if v[2].rank == v[3].rank {
-		return ONE_PAIR
+		return onePair
 	}
 	if v[3].rank == v[4].rank {
-		return ONE_PAIR
+		return onePair
 	}
 
 	// high card
 	// TODO: high card!
 
-	return UNKNOWN
+	return unknown
 }
 
 func getHiCard(h []string) int {
 	v := newHand(h)
 	sort.Sort(&v)
 	var hiCard int
-	if v[0].rank == ACE {
+	if v[0].rank == ace {
 		hiCard = 99
 	} else {
 		hiCard = v[4].rank
@@ -304,28 +304,34 @@ func main() {
 	data := strings.Split(string(content), "\n")
 	fmt.Println(data[1000]) // this one is empty
 	fmt.Println("len", len(data))
+	playerOneWinCount := 0
+
 	for i := 0; i < len(data); i++ {
 		d := strings.TrimSpace(data[i])
 		if len(d) > 0 {
 			totalCount++
-			h0, _ := HandleLine(d)
+			h0, h1 := HandleLine(d)
 			h0Score := ScoreHand(h0)
-			//h1Score := ScoreHand(h1)
-			//fmt.Println(h0, h0Score, h1, h1Score)
-			//return h0Score, h1Score
+			h1Score := ScoreHand(h1)
 
-			if h0Score == UNKNOWN {
+			if h0Score == unknown && h1Score == unknown {
 				unknownCount++
 
 				// need to figure out high card
-				hiCard := getHiCard(h0)
-
-				if i < 5 {
-					fmt.Println(d, h0, hiCard)
+				hiCard0 := getHiCard(h0)
+				hiCard1 := getHiCard(h1)
+				if hiCard0 > hiCard1 {
+					playerOneWinCount++
 				}
-
+				if hiCard0 == hiCard1 {
+					fmt.Println("HI CARD TIE!!!")
+				}
+			} else if h0Score > h1Score {
+				playerOneWinCount++
 			}
+
 		}
 	}
 	fmt.Println("unknown hands", unknownCount)
+	fmt.Println("playerOne win count", playerOneWinCount)
 }
