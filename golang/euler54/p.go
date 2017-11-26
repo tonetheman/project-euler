@@ -25,38 +25,36 @@ type Card struct {
 
 // using this
 type Hand struct {
-	h [5]string
+	h [5]Card
 }
 
-func newHand(h []string) [5]Card {
-	var cards [5]Card
+func (h Hand) Len() int {
+	return len(h.h)
+}
+func (h Hand) Swap(i, j int) {
+	fmt.Println("\t\tswap called i,j", i, j)
+	h.h[i].rank, h.h[j].rank = h.h[j].rank, h.h[i].rank
+	h.h[i].suit, h.h[j].suit = h.h[j].suit, h.h[i].suit
+}
+func (h Hand) Less(i, j int) bool {
+	fmt.Println("\tLess is called i,j", i, j)
+	return h.h[i].rank < h.h[j].rank
+}
+
+func newCard(s string) Card {
+	return Card{translateRank(string(s[0])), translateSuit(string(s[1]))}
+}
+
+func newHand(h []string) Hand {
+	var cards Hand
 	fmt.Println("newHand input h", h)
-	cards[0] = Card{translateRank(h[0]), translateSuit(h[0])}
-	cards[1] = Card{translateRank(h[1]), translateSuit(h[1])}
-	cards[2] = Card{translateRank(h[2]), translateSuit(h[2])}
-	cards[3] = Card{translateRank(h[3]), translateSuit(h[3])}
-	cards[4] = Card{translateRank(h[4]), translateSuit(h[4])}
+	fmt.Println("newHand cards", cards)
+	cards.h[0] = newCard(h[0])
+	cards.h[1] = newCard(h[1])
+	cards.h[2] = newCard(h[2])
+	cards.h[3] = newCard(h[3])
+	cards.h[4] = newCard(h[4])
 	return cards
-}
-
-func TransformHand(h []string) {
-	fmt.Println("orighand", h)
-	// change TJQK in rank
-	// TO WXYZ so they will sort like we want
-	for i := 0; i < 5; i++ {
-		if h[i][0] == 'T' {
-			h[i] = "W" + string(h[i][1])
-		}
-		if h[i][0] == 'J' {
-			h[i] = "X" + string(h[i][1])
-		}
-		if h[i][0] == 'Q' {
-			h[i] = "Y" + string(h[i][1])
-		}
-		if h[i][0] == 'K' {
-			h[i] = "Z" + string(h[i][1])
-		}
-	}
 }
 
 func SortHand(h []string) {
@@ -69,10 +67,10 @@ func ScoreHand(h []string) int {
 	v := newHand(h)
 	fmt.Println("newHand", v)
 
-	//fmt.Println("enter ScoreHand",h)
-	TransformHand(h)
-	//fmt.Println("after TransformHand",h)
-	SortHand(h)
+	sort.Sort(v)
+	fmt.Println("sorted", v)
+	return 0
+
 	//fmt.Println("after SortHand",h)
 	// royal flush
 	if h[0][0] == 'A' &&

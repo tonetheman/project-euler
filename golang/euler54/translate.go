@@ -45,16 +45,17 @@ func translateRank(s string) int {
 }
 
 func translateSuit(s string) int {
-	if s[1] == 'C' {
+	//fmt.Println("translateSuit called", s)
+	if s[0] == 'C' {
 		return 0
 	}
-	if s[1] == 'S' {
+	if s[0] == 'S' {
 		return 1
 	}
-	if s[2] == 'D' {
+	if s[0] == 'D' {
 		return 2
 	}
-	if s[3] == 'H' {
+	if s[0] == 'H' {
 		return 3
 	}
 	return -1
