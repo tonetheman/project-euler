@@ -291,6 +291,40 @@ func HandleLine(inputData string) ([]string, []string) {
 	return h0, h1
 }
 
+func pp(s int) string {
+	if s == royalFlush {
+		return "RF"
+	}
+	if s == unknown {
+		return "U"
+	}
+	if s == straightFlush {
+		return "SF"
+	}
+	if s == fourOfKind {
+		return "4oK"
+	}
+	if s == fullHouse {
+		return "FH"
+	}
+	if s == flush {
+		return "flush"
+	}
+	if s == straight {
+		return "straight"
+	}
+	if s == threeOfKind {
+		return "3oK"
+	}
+	if s == twoPair {
+		return "2 pair"
+	}
+	if s == onePair {
+		return "1 pair"
+	}
+	return "ERR"
+}
+
 func main() {
 
 	content, err := ioutil.ReadFile(filename)
@@ -302,8 +336,8 @@ func main() {
 	var totalCount = 0
 
 	data := strings.Split(string(content), "\n")
-	fmt.Println(data[1000]) // this one is empty
-	fmt.Println("len", len(data))
+	//fmt.Println(data[1000]) // this one is empty
+	//fmt.Println("len", len(data))
 	playerOneWinCount := 0
 
 	for i := 0; i < len(data); i++ {
@@ -314,7 +348,13 @@ func main() {
 			h0Score := ScoreHand(h0)
 			h1Score := ScoreHand(h1)
 
-			if h0Score == unknown && h1Score == unknown {
+			fmt.Println(h0, h0Score, pp(h0Score), h1, h1Score, pp(h1Score))
+
+			if h0Score != unknown && h1Score == unknown {
+				playerOneWinCount++
+			} else if h0Score == unknown && h1Score != unknown {
+				// player 2 clearly won this
+			} else if h0Score == unknown && h1Score == unknown {
 				unknownCount++
 
 				// need to figure out high card
@@ -326,10 +366,7 @@ func main() {
 				if hiCard0 == hiCard1 {
 					fmt.Println("HI CARD TIE!!!")
 				}
-			} else if h0Score > h1Score {
-				playerOneWinCount++
 			}
-
 		}
 	}
 	fmt.Println("unknown hands", unknownCount)
