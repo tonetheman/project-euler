@@ -16,6 +16,7 @@ const (
 	FULL_HOUSE     = 4
 	THREE_OF_KIND  = 5
 	FLUSH          = 6
+	STRAIGHT       = 7
 )
 
 // not sure i am using this
@@ -157,7 +158,7 @@ func ScoreHand(h []string) int {
 		}
 	}
 
-	// TODO: straight flush
+	// STRAIGHT_FLUSH
 	if isFlush {
 		if v[0].rank == v[1].rank-1 &&
 			v[1].rank == v[2].rank-1 &&
@@ -166,6 +167,8 @@ func ScoreHand(h []string) int {
 			return STRAIGHT_FLUSH
 		}
 	}
+	// NOTE: do not need the ACE leading case
+	// since that is a royal flush
 
 	// 4 of a kind left
 	if v[0].rank == v[1].rank &&
@@ -194,15 +197,26 @@ func ScoreHand(h []string) int {
 		return FULL_HOUSE
 	}
 
-	// TODO: flush
-	if v[0].suit == v[1].suit &&
-		v[1].suit == v[2].suit &&
-		v[2].suit == v[3].suit &&
-		v[3].suit == v[4].suit {
+	// flush
+	if isFlush {
 		return FLUSH
 	}
 
-	// TODO: straight
+	fmt.Println("checking for straight", v)
+	// straight
+	if v[0].rank == v[1].rank-1 &&
+		v[1].rank == v[2].rank-1 &&
+		v[2].rank == v[3].rank-1 &&
+		v[3].rank == v[4].rank-1 {
+		return STRAIGHT
+	}
+	// checking for the case where the ACE leads
+	if v[0].rank == ACE &&
+		v[1].rank == v[2].rank-1 &&
+		v[2].rank == v[3].rank-1 &&
+		v[3].rank == v[4].rank-1 {
+		return STRAIGHT
+	}
 
 	// 3 of kind
 	if v[0].rank == v[1].rank &&

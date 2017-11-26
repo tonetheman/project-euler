@@ -80,3 +80,16 @@ func TestStraightFlush(t *testing.T) {
 	r("9S TS JS QS KS")
 	//r("5H 6H 7D 8H 9H")
 }
+
+func TestStraight(t *testing.T) {
+	r := func(s string) {
+		f := strings.Fields(s)
+		v := ScoreHand(f)
+		if v != STRAIGHT {
+			t.Error("failed straight", s, v)
+		}
+	}
+	r("2C 3D 4D 5D 6S")
+	r("AD 2C 3S 4H 5H")
+	r("TD JD QD KD AC")
+}
