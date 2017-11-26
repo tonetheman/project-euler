@@ -34,12 +34,10 @@ func (h *Hand) Len() int {
 	return len(h)
 }
 func (h *Hand) Swap(i, j int) {
-	//fmt.Println("\t\tswap called i,j", i, j)
 	h[i].rank, h[j].rank = h[j].rank, h[i].rank
 	h[i].suit, h[j].suit = h[j].suit, h[i].suit
 }
 func (h *Hand) Less(i, j int) bool {
-	//fmt.Println("\tLess is called i,j", i, j)
 	return h[i].rank < h[j].rank
 }
 
@@ -118,8 +116,6 @@ func newCard(s string) Card {
 
 func newHand(h []string) Hand {
 	var cards Hand
-	//fmt.Println("newHand input h", h)
-	//fmt.Println("newHand cards", cards)
 	cards[0] = newCard(h[0])
 	cards[1] = newCard(h[1])
 	cards[2] = newCard(h[2])
@@ -127,10 +123,6 @@ func newHand(h []string) Hand {
 	cards[4] = newCard(h[4])
 	return cards
 }
-
-//func SortHand(h []string) {
-//	sort.Strings(h[:])
-//}
 
 func checkFlush(v Hand) bool {
 	return v[0].suit == v[1].suit &&
@@ -143,10 +135,10 @@ func checkFlush(v Hand) bool {
 func ScoreHand(h []string) int {
 
 	v := newHand(h)
-	fmt.Println("newHand", v)
+	//fmt.Println("newHand", v)
 
 	sort.Sort(&v)
-	fmt.Println("sorted", v)
+	//fmt.Println("sorted", v)
 
 	isFlush := checkFlush(v)
 
@@ -285,7 +277,7 @@ func HandleLine(inputData string) (int, int) {
 	h1 := d[5:10]
 	h0Score := ScoreHand(h0)
 	h1Score := ScoreHand(h1)
-	fmt.Println(h0, h0Score, h1, h1Score)
+	//fmt.Println(h0, h0Score, h1, h1Score)
 	return h0Score, h1Score
 }
 
@@ -302,13 +294,15 @@ func main() {
 	data := strings.Split(string(content), "\n")
 	fmt.Println(data[1000]) // this one is empty
 	fmt.Println("len", len(data))
-	data[0] = strings.TrimSpace(data[0])
-	if len(data[0]) > 0 {
-		totalCount++
-		fmt.Println("calling HandleLine")
-		h0Score, _ := HandleLine(data[0])
-		if h0Score == UNKNOWN {
-			unknownCount++
+	for i := 0; i < len(data); i++ {
+		d := strings.TrimSpace(data[i])
+		if len(d) > 0 {
+			totalCount++
+			fmt.Println("calling HandleLine")
+			h0Score, _ := HandleLine(data[0])
+			if h0Score == UNKNOWN {
+				unknownCount++
+			}
 		}
 	}
 	fmt.Println("unknown hands", unknownCount)
