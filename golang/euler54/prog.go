@@ -10,24 +10,24 @@ import (
 const filename string = "poker.txt"
 const (
 	UNKNOWN        = 0
-	ROYAL_FLUSH    = 1
-	STRAIGHT_FLUSH = 2
-	FOUR_OF_KIND   = 3
-	FULL_HOUSE     = 4
-	THREE_OF_KIND  = 5
-	FLUSH          = 6
-	STRAIGHT       = 7
-	TWO_PAIR       = 8
-	ONE_PAIR       = 9
+	ROYAL_FLUSH    = 20
+	STRAIGHT_FLUSH = 18
+	FOUR_OF_KIND   = 17
+	FULL_HOUSE     = 16
+	FLUSH          = 15
+	STRAIGHT       = 14
+	THREE_OF_KIND  = 13
+	TWO_PAIR       = 12
+	ONE_PAIR       = 11
 )
 
-// not sure i am using this
+// Card card struct here
 type Card struct {
 	rank int
 	suit int
 }
 
-// using this
+// Hand struct here
 type Hand [5]Card
 
 func (h *Hand) Len() int {
@@ -263,22 +263,32 @@ func ScoreHand(h []string) int {
 	}
 
 	// high card
+	// TODO: high card!
 
 	return UNKNOWN
 }
 
+func getHiCard(h []string) int {
+	v := newHand(h)
+	sort.Sort(&v)
+	var hiCard int
+	if v[0].rank == ACE {
+		hiCard = 99
+	} else {
+		hiCard = v[4].rank
+	}
+	return hiCard
+}
+
 // HandleLine reads in a line as a string
-func HandleLine(inputData string) (int, int) {
+func HandleLine(inputData string) ([]string, []string) {
 	d := strings.Split(inputData, " ")
 	for i := 0; i < len(d); i++ {
 		d[i] = strings.TrimSpace(d[i])
 	}
 	h0 := d[0:5]
 	h1 := d[5:10]
-	h0Score := ScoreHand(h0)
-	h1Score := ScoreHand(h1)
-	//fmt.Println(h0, h0Score, h1, h1Score)
-	return h0Score, h1Score
+	return h0, h1
 }
 
 func main() {
@@ -298,10 +308,22 @@ func main() {
 		d := strings.TrimSpace(data[i])
 		if len(d) > 0 {
 			totalCount++
-			fmt.Println("calling HandleLine")
-			h0Score, _ := HandleLine(data[0])
+			h0, _ := HandleLine(d)
+			h0Score := ScoreHand(h0)
+			//h1Score := ScoreHand(h1)
+			//fmt.Println(h0, h0Score, h1, h1Score)
+			//return h0Score, h1Score
+
 			if h0Score == UNKNOWN {
 				unknownCount++
+
+				// need to figure out high card
+				hiCard := getHiCard(h0)
+
+				if i < 5 {
+					fmt.Println(d, h0, hiCard)
+				}
+
 			}
 		}
 	}
