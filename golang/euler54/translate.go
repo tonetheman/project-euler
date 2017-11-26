@@ -1,9 +1,17 @@
 package main
 
+const (
+	ACE   = 1
+	TEN   = 10
+	JACK  = 11
+	QUEEN = 12
+	KING  = 13
+)
+
 func translateRank(s string) int {
 	var c = s[0]
 	if c == 'A' {
-		return 1
+		return ACE
 	}
 	if c == '2' {
 		return 2
@@ -33,13 +41,13 @@ func translateRank(s string) int {
 		return 10
 	}
 	if c == 'J' {
-		return 11
+		return JACK
 	}
 	if c == 'Q' {
-		return 12
+		return QUEEN
 	}
 	if c == 'K' {
-		return 13
+		return KING
 	}
 	return -1
 }

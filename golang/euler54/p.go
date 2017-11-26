@@ -67,19 +67,18 @@ func ScoreHand(h []string) int {
 
 	sort.Sort(&v)
 	fmt.Println("sorted", v)
-	return 0
 
 	//fmt.Println("after SortHand",h)
 	// royal flush
-	if h[0][0] == 'A' &&
-		h[1][0] == 'W' &&
-		h[2][0] == 'X' &&
-		h[3][0] == 'Y' &&
-		h[4][0] == 'Z' {
-		if h[0][1] == h[1][1] &&
-			h[1][1] == h[2][1] &&
-			h[2][1] == h[3][1] &&
-			h[3][1] == h[4][1] {
+	if v[0].rank == ACE &&
+		v[1].rank == KING &&
+		v[2].rank == QUEEN &&
+		v[3].rank == JACK &&
+		v[4].rank == TEN {
+		if v[0].suit == v[1].suit &&
+			v[1].suit == v[2].suit &&
+			v[2].suit == v[3].suit &&
+			v[3].suit == v[4].suit {
 			fmt.Println("ROYAL_FLUSH")
 			return ROYAL_FLUSH
 		}
@@ -88,17 +87,17 @@ func ScoreHand(h []string) int {
 	// TODO: straight flush
 
 	// 4 of a kind left
-	if h[0][0] == h[1][0] &&
-		h[1][0] == h[2][0] &&
-		h[2][0] == h[3][0] &&
-		h[3][0] != h[4][0] {
+	if v[0].rank == v[1].rank &&
+		v[1].rank == v[2].rank &&
+		v[2].rank == v[3].rank &&
+		v[3].rank != v[4].rank {
 		return FOUR_OF_KIND
 	}
 	// 4 of a kind right
-	if h[1][0] == h[2][0] &&
-		h[2][0] == h[3][0] &&
-		h[3][0] == h[4][0] &&
-		h[0][0] != h[1][0] {
+	if v[1].rank == v[2].rank &&
+		v[2].rank == v[3].rank &&
+		v[3].rank == v[4].rank &&
+		v[0].rank != v[1].rank {
 		return FOUR_OF_KIND
 	}
 
