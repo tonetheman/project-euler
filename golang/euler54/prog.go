@@ -9,12 +9,13 @@ import (
 
 const filename string = "poker.txt"
 const (
-	ROYAL_FLUSH   = 0
-	UNKNOWN       = 1
-	FOUR_OF_KIND  = 2
-	FULL_HOUSE    = 3
-	THREE_OF_KIND = 4
-	FLUSH         = 5
+	UNKNOWN        = 0
+	ROYAL_FLUSH    = 1
+	STRAIGHT_FLUSH = 2
+	FOUR_OF_KIND   = 3
+	FULL_HOUSE     = 4
+	THREE_OF_KIND  = 5
+	FLUSH          = 6
 )
 
 // not sure i am using this
@@ -128,6 +129,13 @@ func newHand(h []string) Hand {
 //	sort.Strings(h[:])
 //}
 
+func checkFlush(v Hand) bool {
+	return v[0].suit == v[1].suit &&
+		v[1].suit == v[2].suit &&
+		v[2].suit == v[3].suit &&
+		v[3].suit == v[4].suit
+}
+
 // ScoreHand expects a sorted/transormed hand
 func ScoreHand(h []string) int {
 
@@ -137,23 +145,27 @@ func ScoreHand(h []string) int {
 	sort.Sort(&v)
 	fmt.Println("sorted", v)
 
-	//fmt.Println("after SortHand",h)
-	// royal flush
-	if v[0].rank == ACE &&
-		v[1].rank == KING &&
-		v[2].rank == QUEEN &&
-		v[3].rank == JACK &&
-		v[4].rank == TEN {
-		if v[0].suit == v[1].suit &&
-			v[1].suit == v[2].suit &&
-			v[2].suit == v[3].suit &&
-			v[3].suit == v[4].suit {
-			fmt.Println("ROYAL_FLUSH")
+	isFlush := checkFlush(v)
+
+	if isFlush {
+		if v[0].rank == ACE &&
+			v[1].rank == TEN &&
+			v[2].rank == JACK &&
+			v[3].rank == QUEEN &&
+			v[4].rank == KING {
 			return ROYAL_FLUSH
 		}
 	}
 
 	// TODO: straight flush
+	if isFlush {
+		if v[0].rank == v[1].rank-1 &&
+			v[1].rank == v[2].rank-1 &&
+			v[2].rank == v[3].rank-1 &&
+			v[3].rank == v[4].rank-1 {
+			return STRAIGHT_FLUSH
+		}
+	}
 
 	// 4 of a kind left
 	if v[0].rank == v[1].rank &&
