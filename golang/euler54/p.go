@@ -102,38 +102,38 @@ func ScoreHand(h []string) int {
 	}
 
 	// full house
-	if h[0][0] == h[1][0] &&
-		h[1][0] == h[2][0] &&
-		h[3][0] == h[4][0] {
+	if v[0].rank == v[1].rank &&
+		v[1].rank == v[2].rank &&
+		v[3].rank == v[4].rank {
 		return FULL_HOUSE
 	}
-	if h[0][0] == h[1][0] &&
-		h[2][0] == h[3][0] &&
-		h[3][0] == h[4][0] {
+	if v[0].rank == v[1].rank &&
+		v[2].rank == v[3].rank &&
+		v[3].rank == v[4].rank {
 		return FULL_HOUSE
 	}
 
 	// TODO: flush
-	if h[0][1] == h[1][1] &&
-		h[1][1] == h[2][1] &&
-		h[2][1] == h[3][1] &&
-		h[3][1] == h[4][1] {
+	if v[0].suit == v[1].suit &&
+		v[1].suit == v[2].suit &&
+		v[2].suit == v[3].suit &&
+		v[3].suit == v[4].suit {
 		return FLUSH
 	}
 
 	// TODO: straight
 
 	// 3 of kind
-	if h[0][0] == h[1][0] &&
-		h[1][0] == h[2][0] &&
-		h[2][0] != h[3][0] &&
-		h[2][0] != h[4][0] {
+	if v[0].rank == v[1].rank &&
+		v[1].rank == v[2].rank &&
+		v[2].rank != v[3].rank &&
+		v[2].rank != v[4].rank {
 		return THREE_OF_KIND
 	}
-	if h[4][0] == h[3][0] &&
-		h[3][0] == h[2][0] &&
-		h[2][0] != h[1][0] &&
-		h[2][0] != h[0][0] {
+	if v[4].rank == v[3].rank &&
+		v[3].rank == v[2].rank &&
+		v[2].rank != v[1].rank &&
+		v[2].rank != v[0].rank {
 		return THREE_OF_KIND
 	}
 
@@ -146,17 +146,18 @@ func ScoreHand(h []string) int {
 	return UNKNOWN
 }
 
-func HandleLine(input_data string) (int, int) {
-	d := strings.Split(input_data, " ")
+// HandleLine reads in a line as a string
+func HandleLine(inputData string) (int, int) {
+	d := strings.Split(inputData, " ")
 	for i := 0; i < len(d); i++ {
 		d[i] = strings.TrimSpace(d[i])
 	}
 	h0 := d[0:5]
 	h1 := d[5:10]
-	h0_score := ScoreHand(h0)
-	h1_score := ScoreHand(h1)
-	fmt.Println(h0, h0_score, h1, h1_score)
-	return h0_score, h1_score
+	h0Score := ScoreHand(h0)
+	h1Score := ScoreHand(h1)
+	fmt.Println(h0, h0Score, h1, h1Score)
+	return h0Score, h1Score
 }
 
 func main() {
