@@ -280,6 +280,18 @@ func getHiCard(h []string) int {
 	return hiCard
 }
 
+func getSecondHiCard(h []string) int {
+	v := newHand(h)
+	sort.Sort(&v)
+	var hiCard int
+	if v[0].rank == ace {
+		hiCard = v[4].rank
+	} else {
+		hiCard = v[3].rank
+	}
+	return hiCard
+}
+
 // HandleLine reads in a line as a string
 func HandleLine(inputData string) ([]string, []string) {
 	d := strings.Split(inputData, " ")
@@ -348,25 +360,50 @@ func main() {
 			h0Score := ScoreHand(h0)
 			h1Score := ScoreHand(h1)
 
-			fmt.Println(h0, h0Score, pp(h0Score), h1, h1Score, pp(h1Score))
-
+			var caseValue string
+			var p1Value string
 			if h0Score != unknown && h1Score == unknown {
+				// player one wins this case
+				caseValue = "CASE1"
+				p1Value = "W"
 				playerOneWinCount++
 			} else if h0Score == unknown && h1Score != unknown {
 				// player 2 clearly won this
-			} else if h0Score == unknown && h1Score == unknown {
-				unknownCount++
-
+				caseValue = "CASE2"
+				p1Value = "L"
+			} else if h0Score == h1Score {
+				caseValue = "CASE3"
 				// need to figure out high card
+				// this handles the case where the high card matches
 				hiCard0 := getHiCard(h0)
 				hiCard1 := getHiCard(h1)
 				if hiCard0 > hiCard1 {
 					playerOneWinCount++
+					p1Value = "W"
 				}
+				// if the high card tied then
+				// get the next hi card down and compare
 				if hiCard0 == hiCard1 {
-					fmt.Println("HI CARD TIE!!!")
+					hiCard0 = getSecondHiCard(h0)
+					hiCard1 = getSecondHiCard(h1)
+					if hiCard0 > hiCard1 {
+						playerOneWinCount++
+						p1Value = "W"
+					}
+					if hiCard0 == hiCard1 {
+						fmt.Println("HI CARD TIE!!!")
+					}
+				}
+			} else if h0Score != unknown && h1Score != unknown {
+				caseValue = "CASE4"
+				if h0Score > h1Score {
+					playerOneWinCount++
+					p1Value = "W"
 				}
 			}
+
+			fmt.Println(caseValue, h0, h0Score, pp(h0Score), h1, h1Score, pp(h1Score), p1Value)
+
 		}
 	}
 	fmt.Println("unknown hands", unknownCount)
