@@ -402,7 +402,10 @@ func main() {
 				}
 			}
 
-			fmt.Println(caseValue, h0, h0Score, pp(h0Score), h1, h1Score, pp(h1Score), p1Value)
+			fmt.Println(p1Value, caseValue)
+			fmt.Println(h0, h0Score, pp(h0Score))
+			fmt.Println(h1, h1Score, pp(h1Score))
+			fmt.Println()
 
 		}
 	}
